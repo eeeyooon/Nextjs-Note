@@ -1,3 +1,4 @@
+import { notFound } from "next/navigation";
 import React from "react";
 
 type Props = {
@@ -6,7 +7,16 @@ type Props = {
   };
 };
 
+export function generateMetadata({ params }: Props) {
+  return {
+    title: `제품의 이름: ${params.slug}`,
+  };
+}
+
 export default function PantsPage({ params }: Props) {
+  if (params.slug === "nothing") {
+    notFound();
+  }
   return <h1>{params.slug} 제품 설명</h1>;
 }
 
