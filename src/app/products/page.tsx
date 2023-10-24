@@ -1,9 +1,8 @@
 import { getProducts } from "@/service/products";
 import Link from "next/link";
-import React from "react";
-import styles from "./layout.module.css";
+import styles from "./page.module.css";
 
-export const revalidate = 3;
+// export const revalidate = 3;
 // 3초마다 revalidate가 되도록 설정.
 
 export default async function ProductsPage() {
@@ -11,6 +10,11 @@ export default async function ProductsPage() {
 
   // 만들어놓은 getProducts() 사용
   const products = await getProducts();
+  const res = await fetch("https://meowfacts.herokuapp.com", {
+    next: { revalidate: 3 },
+  });
+  const data = await res.json();
+  const factText = data.data[0];
 
   return (
     <>
@@ -22,6 +26,7 @@ export default async function ProductsPage() {
           </li>
         ))}
       </ul>
+      <article className={styles.article}>{factText}</article>
     </>
   );
 }
