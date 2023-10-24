@@ -3,6 +3,9 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import React from "react";
 
+export const revalidate = 3;
+// 3초마다 revalidate가 되도록 설정.
+
 type Props = {
   params: {
     slug: string;
