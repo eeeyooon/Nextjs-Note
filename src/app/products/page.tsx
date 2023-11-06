@@ -11,7 +11,9 @@ export default async function ProductsPage() {
   // 만들어놓은 getProducts() 사용
   const products = await getProducts();
   const res = await fetch("https://meowfacts.herokuapp.com", {
-    next: { revalidate: 3 },
+    next: { revalidate: 0 },
+    //cache : 'no-store'
+    //cache : 'force-cache'
   });
   const data = await res.json();
   const factText = data.data[0];
